@@ -1,5 +1,7 @@
 /** @module OAuthServer **/
 
+export { AuthorizationCode, TYPE } from './pkce';
+
 import OAuth2Server, {
   InvalidArgumentError,
   AuthenticateOptions,
