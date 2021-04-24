@@ -31,8 +31,18 @@ export interface ExpressMiddleware {
   ): Promise<void>;
 }
 
+export interface ErrorObject {
+  status?: number;
+  message?: string;
+}
+
 export interface CustomErrorResponse {
-  (res: ExpressResponse, status: number, message: string): void;
+  (
+    res: ExpressResponse,
+    status: number,
+    message: string,
+    _error: ErrorObject
+  ): void;
 }
 
 /**
@@ -46,6 +56,13 @@ export interface CustomErrorResponse {
  * @return {Promise<void>}
  */
 /**
+ * @typedef {Object} ErrorObject
+ * @memberof module:OAuthServer
+ *
+ * @property {number=} status
+ * @property {string=} message
+ */
+/**
  * @typedef {Function} CustomErrorResponse
  * @memberof module:OAuthServer
  *
@@ -53,6 +70,8 @@ export interface CustomErrorResponse {
  * @param {number} status The status of the error.
  * @param {string} message
  * The message of the error. (If the status is >= 500, the message will always be "Internal Server Error")
+ * @param {module:OAuthServer.ErrorObject} _error
+ * If the status is >= 500, you can use the error object to check the Server Error
  * @return {void}
  */
 /**
@@ -237,7 +256,11 @@ export default class OAuthServer {
       return this.customErrorResponse(
         res,
         status >= 500 ? INTERNAL_STATUS : status,
-        status >= 500 ? INTERNAL_MESSAGE : message
+        status >= 500 ? INTERNAL_MESSAGE : message,
+        {
+          status: error?.code,
+          message: error?.message
+        }
       );
     }
 
