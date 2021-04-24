@@ -1,0 +1,12 @@
+.github/
+docs/
+scripts/
+src/
+.eslintignore
+.eslintrc.json
+.gitignore
+.jsdoc.json
+README.md
+CHANGELOG.md
+SECURITY.md
+tsconfig.json
