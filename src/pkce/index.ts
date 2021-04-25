@@ -1,3 +1,5 @@
+/** @module PKCE **/
+
 export { default as saveAuthorizationCode } from './saveAuthorizationCode';
 export { default as handleAuthorization } from './handleAuthorization';
 export { default as validateAuthCode } from './validateAuthCode';

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
-      Home - Documentation
+      pkce/index.js - Documentation
   </title>
 
   <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
@@ -51,14 +53,14 @@
 
   <div class="top-nav-wrapper">
     <ul>
-      <li  class="active" >
+      <li >
         <a href="index.html">
           
-          
-            <svg fill="#0095dd" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
               <path d="M0 0h24v24H0z" fill="none"/>
             </svg>
+          
           
         </a>
       </li>
@@ -89,83 +91,50 @@
 
   <div id="main">
     
+      <h1 class="page-title">
+        pkce/index.js
+      </h1>
+    
 
     
       
 
-
-
-    
-
-      
-
-
-  <section class="readme">
-    <article>
-      <h1>@adr-express-ts/oauth2</h1>
-<p>This is an <strong>OAuth2 Server Wrapper</strong> with support for <strong>PKCE</strong></p>
-<h3>Content</h3>
-<ol>
-<li><a href="#Code%20Challenge%20Method%20S256">Code Challenge Method <code>S256</code></a></li>
-<li><a href="#Code%20Challenge%20Method%20plain">Code Challenge Method <code>plain</code></a></li>
-</ol>
-<h2>PKCE Support</h2>
-<p>To use the PKCE:</p>
-<ul>
-<li><code>code_challenge</code> and <code>code_challenge_method</code> (Which defaults to <code>plain</code>) must be included in the <strong>Authorization Code Grant</strong>.</li>
-<li><code>code_verifier</code> must be sent in the Token Grant. The <code>client_secret</code> is ignored when <code>code_verifier</code> is present.</li>
-</ul>
-<h3>Code Challenge Method <code>S256</code></h3>
-<p>For S256, when sending the request from the client, the <code>codeChallenge</code> must be saved as <code>SHA256</code> in <code>Base64</code> according to <a href="https://tools.ietf.org/html/rfc7636#page-17">RFC7637 Page 17</a>.</p>
-<p>When the token is generated, the <code>code_verifier</code> must not be encoded, the wrapper will hash it and validate it with the <code>codeChallenge</code>.</p>
-<p>Example in NodeJS for <code>codeChallenge</code>:</p>
-<pre class="prettyprint source lang-ts"><code>import crypto from 'crypto';
-const codeVerifier: string = 'some string';
-
-const base64URLEncode = (buffer: Buffer) => {
-  return buffer
-    .toString('base64')
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
+<section>
+  <article>
+    <pre class="prettyprint source linenums"><code>"use strict";
+/** @module PKCE **/
+var __createBinding = (this &amp;&amp; this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this &amp;&amp; this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" &amp;&amp; !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
-
-const hash = base64URLEncode(
-  crypto.createHash('sha256').update(codeVerifier).digest()
-);
-</code></pre>
-<h3>Code Challenge Method <code>plain</code></h3>
-<p>For plain, when sending the request from the client, the <code>codeChallenge</code> must be validated by this regex <code>/^([A-Za-z0-9\.\-\_\~]){43,128}$/</code> according to <a href="https://tools.ietf.org/html/rfc7636#section-4">RFC7637 Section 4.1</a>.</p>
-<p>When the token is generated, the <code>code_verifier</code> must be the same as <code>codeChallenge</code>.</p>
-<h3>Request model for <code>Authorize</code></h3>
-<p>The <code>code verifier</code> is <code>some-hash</code>.</p>
-<p>The <code>code challenge</code> is <code>xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms</code>.</p>
-<p>The <code>Authorization</code> header is required and can be generated from Password Grant to know which user is which.</p>
-<p>The parameters for the request body as <code>application/x-www-form-urlencoded</code> are:</p>
-<pre class="prettyprint source lang-json"><code>{
-  &quot;client_id&quot;: &quot;123456789&quot;,
-  &quot;grant_type&quot;: &quot;authorization_code&quot;,
-  &quot;state&quot;: &quot;some_state&quot;,
-  &quot;response_type&quot;: &quot;code&quot;,
-  &quot;scope&quot;: &quot;some_scope&quot;,
-  &quot;code_challenge_method&quot;: &quot;S256&quot;,
-  &quot;code_challenge&quot;: &quot;xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms&quot;
-}
-</code></pre>
-<pre class="prettyprint source lang-curl"><code>curl --location --request POST 'http://127.0.0.1/api/v1/oauth2/authorize' \
---header 'Authorization: Bearer some-access-token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'client_id=123456789' \
---data-urlencode 'grant_type=authorization_code' \
---data-urlencode 'state=some_state' \
---data-urlencode 'response_type=code' \
---data-urlencode 'scope=some_scope' \
---data-urlencode 'code_challenge_method=S256' \
---data-urlencode 'code_challenge=xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms'
-</code></pre>
-    </article>
-  </section>
-
+var __importDefault = (this &amp;&amp; this.__importDefault) || function (mod) {
+    return (mod &amp;&amp; mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TYPE = exports.getClient = exports.validateAuthCode = exports.handleAuthorization = exports.saveAuthorizationCode = void 0;
+var saveAuthorizationCode_1 = require("./saveAuthorizationCode");
+Object.defineProperty(exports, "saveAuthorizationCode", { enumerable: true, get: function () { return __importDefault(saveAuthorizationCode_1).default; } });
+var handleAuthorization_1 = require("./handleAuthorization");
+Object.defineProperty(exports, "handleAuthorization", { enumerable: true, get: function () { return __importDefault(handleAuthorization_1).default; } });
+var validateAuthCode_1 = require("./validateAuthCode");
+Object.defineProperty(exports, "validateAuthCode", { enumerable: true, get: function () { return __importDefault(validateAuthCode_1).default; } });
+var getClient_1 = require("./getClient");
+Object.defineProperty(exports, "getClient", { enumerable: true, get: function () { return __importDefault(getClient_1).default; } });
+__exportStar(require("./extender"), exports);
+__exportStar(require("./getCode"), exports);
+exports.TYPE = {
+    PLAIN: 'plain',
+    S256: 'S256'
+};
+//# sourceMappingURL=index.js.map</code></pre>
+  </article>
+</section>
 
     
 

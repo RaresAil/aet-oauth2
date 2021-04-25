@@ -86,7 +86,7 @@
       
     
 
-    <h3>Classes</h3><ul><li id="OAuthServer-nav"><a href="module-OAuthServer.OAuthServer.html">OAuthServer</a><ul class='methods'><li data-type="method" id="OAuthServer-authenticate-nav"><a href="module-OAuthServer.OAuthServer.html#authenticate">authenticate</a></li><li data-type="method" id="OAuthServer-authorize-nav"><a href="module-OAuthServer.OAuthServer.html#authorize">authorize</a></li><li data-type="method" id="OAuthServer-token-nav"><a href="module-OAuthServer.OAuthServer.html#token">token</a></li></ul></li></ul><h3>Modules</h3><ul><li id="OAuthServer-nav"><a href="module-OAuthServer.html">OAuthServer</a></li></ul>
+    <h3>Classes</h3><ul><li id="OAuthServer-nav"><a href="module-OAuthServer.OAuthServer.html">OAuthServer</a><ul class='methods'><li data-type="method" id="OAuthServer-authenticate-nav"><a href="module-OAuthServer.OAuthServer.html#authenticate">authenticate</a></li><li data-type="method" id="OAuthServer-authorize-nav"><a href="module-OAuthServer.OAuthServer.html#authorize">authorize</a></li><li data-type="method" id="OAuthServer-token-nav"><a href="module-OAuthServer.OAuthServer.html#token">token</a></li></ul></li></ul><h3>Modules</h3><ul><li id="OAuthServer-nav"><a href="module-OAuthServer.html">OAuthServer</a></li><li id="PKCE-nav"><a href="module-PKCE.html">PKCE</a></li></ul>
   </nav>
 
   <div id="main">
@@ -221,9 +221,12 @@ var oauth2_server_1 = __importStar(require("oauth2-server"));
  */
 /**
  * @class
- * @classdesc The OAuthServer class.
+ * @classdesc
+ * The OAuthServer class. This wrapper also implements the PKCE support,
+ * to use it, check the interface [AuthorizationCode]{@link AuthorizationCode}
  * @param {OAuthServerOptions} options
  * @param {CustomErrorResponse=} customErrorResponse
+ * If you want to handle the errors for yourself, use this function
  * @memberof module:OAuthServer
  */
 var OAuthServer = /** @class */ (function () {

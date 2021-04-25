@@ -95,9 +95,12 @@ export interface CustomErrorResponse {
 
 /**
  * @class
- * @classdesc The OAuthServer class.
+ * @classdesc
+ * The OAuthServer class. This wrapper also implements the PKCE support,
+ * to use it, check the interface [AuthorizationCode]{@link module:PKCE.AuthorizationCode}
  * @param {module:OAuthServer.OAuthServerOptions} options
  * @param {module:OAuthServer.CustomErrorResponse=} customErrorResponse
+ * If you want to handle the errors for yourself, use this function
  * @memberof module:OAuthServer
  */
 export default class OAuthServer {

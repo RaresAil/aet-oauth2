@@ -88,3 +88,13 @@ AuthorizeHandler.prototype.saveAuthorizationCode = function (
     codeChallengeMethod
   );
 };
+
+/**
+ * @typedef {Object} AuthorizationCode
+ * This interface extends the Oauth2's AuthorizationCode and is adding the
+ * PKCE support for the Oauth2 server
+ * @memberof module:PKCE
+ *
+ * @property {string=} codeChallenge
+ * @property {('S256' | 'plain')=} codeChallengeMethod
+ */
