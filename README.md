@@ -4,8 +4,8 @@ This is an **OAuth2 Server Wrapper** with support for **PKCE**
 
 ### Content
 
-1. [Code Challenge Method `S256`](#Code%20Challenge%20Method%20S256)
-2. [Code Challenge Method `plain`](#Code%20Challenge%20Method%20plain)
+1. [Code Challenge Method `S256`](#code-challenge-method-s256)
+2. [Code Challenge Method `plain`](#code-challenge-method-plain)
 
 ## PKCE Support
 
