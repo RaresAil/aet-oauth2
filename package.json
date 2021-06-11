@@ -12,7 +12,8 @@
     "build": "yarn lint && rm -rf ./lib/ && tsc -p .",
     "lint": "eslint src/**/*.ts",
     "read:docs": "serve ./docs",
-    "version": "yarn build"
+    "version": "yarn build",
+    "audit": "node ./scripts/yarn-audit.js"
   },
   "keywords": [
     "OAuth2",
