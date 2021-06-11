@@ -2,6 +2,8 @@
 
 This is an **OAuth2 Server Wrapper** with support for **PKCE**
 
+[![Build/Testing CI/CD](https://github.com/RaresAil/aet-oauth2/actions/workflows/node.js.yml/badge.svg)](https://github.com/RaresAil/aet-oauth2/actions/workflows/node.js.yml)
+
 ### Content
 
 1. [Code Challenge Method `S256`](#code-challenge-method-s256)
