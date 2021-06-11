@@ -15,7 +15,8 @@
     "collapse": true,
     "resources": {
       "@adr-express-ts/core": "https://github.com/RaresAil/adr-express-ts",
-      "Framework Documentation": "https://raresail.github.io/adr-express-ts/"
+      "Framework Documentation": "https://raresail.github.io/adr-express-ts/",
+      "NPM": "https://www.npmjs.com/package/@adr-express-ts/oauth2"
     }
   },
   "opts": {
