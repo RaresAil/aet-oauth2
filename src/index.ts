@@ -61,8 +61,8 @@ export interface CustomErrorResponse {
  * @typedef {Object} ErrorObject
  * @memberof module:OAuthServer
  *
- * @property {number=} status
- * @property {string=} message
+ * @property {number=} status The error's status code
+ * @property {string=} message The error's message
  */
 /**
  * @typedef {Function} CustomErrorResponse
@@ -91,6 +91,47 @@ export interface CustomErrorResponse {
  * Specify which action should be sent to responder.
  * @property {ServerOptions.model} model The model for the oauth2server.
  * @property {number} accessTokenLifetime The expire time in seconds
+ */
+/**
+ * @typedef {Object} AuthenticateOptions The OAuth2Server's AuthenticateOptions
+ * @memberof module:OAuthServer
+ *
+ * @property {Array<string>=} scope
+ * The scope(s) to authenticate.
+ * @property {boolean=} addAcceptedScopesHeader
+ * Set the X-Accepted-OAuth-Scopes HTTP header on response objects.
+ * @property {boolean=} addAuthorizedScopesHeader
+ * Set the X-OAuth-Scopes HTTP header on response objects.
+ * @property {boolean=} allowBearerTokensInQueryString
+ * Allow clients to pass bearer tokens in the query string of a request.
+ */
+/**
+ * @typedef {Object} AuthorizeOptions The OAuth2Server's AuthorizeOptions
+ * @memberof module:OAuthServer
+ *
+ * @property {{}=} authenticateHandler
+ * The authenticate handler
+ * @property {boolean=} allowEmptyState
+ * Allow clients to specify an empty state
+ * @property {number=} authorizationCodeLifetime
+ * Lifetime of generated authorization codes in seconds (default = 5 minutes).
+ */
+/**
+ * @typedef {Object} TokenOptions The OAuth2Server's TokenOptions
+ * @memberof module:OAuthServer
+ *
+ * @property {number=} accessTokenLifetime
+ * Lifetime of generated access tokens in seconds (default = 1 hour)
+ * @property {number=} refreshTokenLifetime
+ * Lifetime of generated refresh tokens in seconds (default = 2 weeks)
+ * @property {boolean=} allowExtendedTokenAttributes
+ * Allow extended attributes to be set on the returned token
+ * @property {{}=} requireClientAuthentication
+ * Require a client secret. Defaults to true for all grant types.
+ * @property {boolean=} alwaysIssueNewRefreshToken
+ * Always revoke the used refresh token and issue a new one for the refresh_token grant.
+ * @property {Object.<string, AbstractGrantType>=} extendedGrantTypes
+ * Additional supported grant types.
  */
 
 /**
@@ -131,7 +172,7 @@ export default class OAuthServer {
 
   /**
    *
-   * @param {AuthorizeOptions=} options The OAuth2Server's AuthorizeOptions
+   * @param {module:OAuthServer.AuthorizeOptions=} options The OAuth2Server's AuthorizeOptions
    * @return {module:OAuthServer.ExpressMiddleware}
    */
   public authorize(options?: AuthorizeOptions): ExpressMiddleware {
@@ -160,7 +201,7 @@ export default class OAuthServer {
 
   /**
    *
-   * @param {AuthenticateOptions=} options The OAuth2Server's AuthenticateOptions
+   * @param {module:OAuthServer.AuthenticateOptions=} options The OAuth2Server's AuthenticateOptions
    * @return {module:OAuthServer.ExpressMiddleware}
    */
   public authenticate(options?: AuthenticateOptions): ExpressMiddleware {
@@ -188,7 +229,7 @@ export default class OAuthServer {
 
   /**
    *
-   * @param {TokenOptions=} options The OAuth2Server's TokenOptions
+   * @param {module:OAuthServer.TokenOptions=} options The OAuth2Server's TokenOptions
    * @return {module:OAuthServer.ExpressMiddleware}
    */
   public token(options?: TokenOptions): ExpressMiddleware {

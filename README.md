@@ -7,6 +7,11 @@ This is an **OAuth2 Server Wrapper** with support for **PKCE**
 1. [Code Challenge Method `S256`](#code-challenge-method-s256)
 2. [Code Challenge Method `plain`](#code-challenge-method-plain)
 
+### Templates
+
+1. [Password Grant](https://github.com/RaresAil/express-oauth-password-grant-example)
+2. Authorization Code Grant (Coming Soon)
+
 ## PKCE Support
 
 To use the PKCE:
