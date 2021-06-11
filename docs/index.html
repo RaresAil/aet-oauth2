@@ -119,8 +119,8 @@
 <p>For S256, when sending the request from the client, the <code>codeChallenge</code> must be saved as <code>SHA256</code> in <code>Base64</code> according to <a href="https://tools.ietf.org/html/rfc7636#page-17">RFC7637 Page 17</a>.</p>
 <p>When the token is generated, the <code>code_verifier</code> must not be encoded, the wrapper will hash it and validate it with the <code>codeChallenge</code>.</p>
 <p>Example in NodeJS for <code>codeChallenge</code>:</p>
-<pre class="prettyprint source lang-ts"><code>import crypto from 'crypto';
-const codeVerifier: string = 'some string';
+<pre class="prettyprint source lang-js"><code>import crypto from 'crypto';
+const codeVerifier: string = 'some-hash';
 
 const base64URLEncode = (buffer: Buffer) => {
   return buffer
@@ -137,7 +137,7 @@ const hash = base64URLEncode(
 <h3>Code Challenge Method <code>plain</code></h3>
 <p>For plain, when sending the request from the client, the <code>codeChallenge</code> must be validated by this regex <code>/^([A-Za-z0-9\.\-\_\~]){43,128}$/</code> according to <a href="https://tools.ietf.org/html/rfc7636#section-4">RFC7637 Section 4.1</a>.</p>
 <p>When the token is generated, the <code>code_verifier</code> must be the same as <code>codeChallenge</code>.</p>
-<h3>Request model for <code>Authorize</code></h3>
+<h3>Request model for <code>Authorize</code> and <code>Authorization Code Grant</code></h3>
 <p>The <code>code verifier</code> is <code>some-hash</code>.</p>
 <p>The <code>code challenge</code> is <code>xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms</code>.</p>
 <p>The <code>Authorization</code> header is required and can be generated from Password Grant to know which user is which.</p>
@@ -162,6 +162,39 @@ const hash = base64URLEncode(
 --data-urlencode 'scope=some_scope' \
 --data-urlencode 'code_challenge_method=S256' \
 --data-urlencode 'code_challenge=xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms'
+</code></pre>
+<p>Response:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;code&quot;: &quot;248ebd408a963cf3c66eecd22146ec35ac11384f&quot;,
+  &quot;state&quot;: &quot;some_state&quot;
+}
+</code></pre>
+<h3>Request model for <code>Token</code> and <code>Authorization Code Grant</code></h3>
+<p>The parameters for the request body as <code>application/x-www-form-urlencoded</code> are:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;client_id&quot;: &quot;123456789&quot;,
+  &quot;grant_type&quot;: &quot;authorization_code&quot;,
+  &quot;code&quot;: &quot;248ebd408a963cf3c66eecd22146ec35ac11384f&quot;,
+  &quot;redirect_uri&quot;: &quot;http://url&quot;,
+  &quot;code_verifier&quot;: &quot;some-hash&quot;
+}
+</code></pre>
+<pre class="prettyprint source lang-curl"><code>curl --location --request POST 'http://127.0.0.1/api/v1/oauth2/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=123456789' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=248ebd408a963cf3c66eecd22146ec35ac11384f' \
+--data-urlencode 'redirect_uri=http://url' \
+--data-urlencode 'code_verifier=some-hash'
+</code></pre>
+<p>Response:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;access_token&quot;: &quot;25202a95c58ffaead0d423a75c7b89e3a4e71046&quot;,
+  &quot;token_type&quot;: &quot;Bearer&quot;,
+  &quot;expires_in&quot;: 3599,
+  &quot;refresh_token&quot;: &quot;1a54d25aafe6cc54a486680c1ec538c3731ba74a&quot;,
+  &quot;scope&quot;: &quot;some_scope&quot;
+}
 </code></pre>
     </article>
   </section>

@@ -22,9 +22,9 @@ When the token is generated, the `code_verifier` must not be encoded, the wrappe
 
 Example in NodeJS for `codeChallenge`:
 
-```ts
+```js
 import crypto from 'crypto';
-const codeVerifier: string = 'some string';
+const codeVerifier: string = 'some-hash';
 
 const base64URLEncode = (buffer: Buffer) => {
   return buffer
@@ -45,7 +45,7 @@ For plain, when sending the request from the client, the `codeChallenge` must be
 
 When the token is generated, the `code_verifier` must be the same as `codeChallenge`.
 
-### Request model for `Authorize`
+### Request model for `Authorize` and `Authorization Code Grant`
 
 The `code verifier` is `some-hash`.
 
@@ -78,4 +78,49 @@ curl --location --request POST 'http://127.0.0.1/api/v1/oauth2/authorize' \
 --data-urlencode 'scope=some_scope' \
 --data-urlencode 'code_challenge_method=S256' \
 --data-urlencode 'code_challenge=xtZ07fkhEB8SBPd1I5DLKo1_4OsA8GXYR328wpqfNms'
+```
+
+Response:
+
+```json
+{
+  "code": "248ebd408a963cf3c66eecd22146ec35ac11384f",
+  "state": "some_state"
+}
+```
+
+### Request model for `Token` and `Authorization Code Grant`
+
+The parameters for the request body as `application/x-www-form-urlencoded` are:
+
+```json
+{
+  "client_id": "123456789",
+  "grant_type": "authorization_code",
+  "code": "248ebd408a963cf3c66eecd22146ec35ac11384f",
+  "redirect_uri": "http://url",
+  "code_verifier": "some-hash"
+}
+```
+
+```curl
+curl --location --request POST 'http://127.0.0.1/api/v1/oauth2/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=123456789' \
+--data-urlencode 'grant_type=authorization_code' \
+--data-urlencode 'code=248ebd408a963cf3c66eecd22146ec35ac11384f' \
+--data-urlencode 'redirect_uri=http://url' \
+--data-urlencode 'code_verifier=some-hash'
+```
+
+Response:
+
+```json
+{
+  "access_token": "25202a95c58ffaead0d423a75c7b89e3a4e71046",
+  "token_type": "Bearer",
+  "expires_in": 3599,
+  "refresh_token": "1a54d25aafe6cc54a486680c1ec538c3731ba74a",
+  "scope": "some_scope"
+}
 ```
