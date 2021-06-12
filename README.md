@@ -3,8 +3,11 @@
 This is an **OAuth2 Server Wrapper** with support for **PKCE**
 
 [![Build/Testing CI/CD](https://github.com/RaresAil/aet-oauth2/actions/workflows/node.js.yml/badge.svg)](https://github.com/RaresAil/aet-oauth2/actions/workflows/node.js.yml)
+[![CodeQL](https://github.com/RaresAil/aet-oauth2/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/RaresAil/aet-oauth2/actions/workflows/codeql-analysis.yml)
+[![OSSAR](https://github.com/RaresAil/aet-oauth2/actions/workflows/ossar-analysis.yml/badge.svg)](https://github.com/RaresAil/aet-oauth2/actions/workflows/ossar-analysis.yml)
 
 [NPM](https://www.npmjs.com/package/@adr-express-ts/oauth2)
+[Documentation](https://raresail.github.io/aet-oauth2/)
 
 ### Content
 
@@ -13,8 +16,7 @@ This is an **OAuth2 Server Wrapper** with support for **PKCE**
 
 ### Templates
 
-1. [Password Grant](https://github.com/RaresAil/express-oauth-password-grant-example)
-2. Authorization Code Grant (Coming Soon)
+For **Password Grant** and **Authorization Code Grant with PKCE** templates, use the [@adr-express-ts/core](https://www.npmjs.com/package/@adr-express-ts/core) and select the OAuth2 module(s)
 
 ## PKCE Support
 

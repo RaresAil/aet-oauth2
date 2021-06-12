@@ -1,6 +1,6 @@
 {
   "name": "@adr-express-ts/oauth2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An OAuth2 Server Wrapper for @adr-express-ts/core and with the PKCE implementation",
   "main": "lib/index.js",
   "types": "lib",
